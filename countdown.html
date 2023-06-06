@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black; /* Set background color to black */
+            color: white; /* Set text color to white */
+        }
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: gold; /* Set title color to gold */
+            font-size: 60px; /* Set font size of the title */
+        }
+
+        #countdown-container {
+            text-align: center;
+            margin-top: 20px; /* Add space between title and countdown */
+            }
+
+        #countdown-timer {
+            font-size: 3rem;
+            color: white; /* Set clock color to white */
+        }
+
+        span {
+            margin: 0 5px;
+        }
+    </style>    </style>
+</head>
+<body>
+    <div id="countdown-container">
+        <h1>A8 Summit - Party Time!</h1>
+        <div id="countdown-timer">
+            <span id="days">00</span> days
+            <span id="hours">00</span> hours
+            <span id="minutes">00</span> minutes
+            <span id="seconds">00</span> seconds
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Set the target end time for the countdown
+            var targetDate = new Date("2023-06-14T00:00:00").getTime();
+
+            // Update the countdown every second
+            var countdownInterval = setInterval(function() {
+                // Get the current time
+                var now = new Date().getTime();
+
+                // Calculate the remaining time
+                var timeDifference = targetDate - now;
+
+                // Calculate days, hours, minutes, and seconds
+                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                // Update the HTML elements with the remaining time
+                document.getElementById("days").innerText = padNumber(days);
+                document.getElementById("hours").innerText = padNumber(hours);
+                document.getElementById("minutes").innerText = padNumber(minutes);
+                document.getElementById("seconds").innerText = padNumber(seconds);
+
+                // Check if the countdown has reached zero
+                if (timeDifference < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("countdown-timer").innerText = "Countdown Finished";
+                }
+            }, 1000);
+
+            // Helper function to pad numbers with leading zeros
+            function padNumber(number) {
+                return ("0" + number).slice(-2);
+            }
+        };
+    </script>
+</body>
+</html>
